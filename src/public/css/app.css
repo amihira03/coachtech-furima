@@ -1,0 +1,25 @@
+body {
+    margin: 0;
+    font-family: Inter, sans-serif;
+    background: #fff;
+}
+
+.site-header {
+    background: #000;
+}
+
+.site-header__inner {
+    max-width: 1540px;
+    margin: 0 auto;
+    padding: 16px 24px;
+}
+
+.site-header__logo-link {
+    display: inline-block;
+}
+
+.site-header__logo {
+    display: block;
+    height: 24px;
+    width: auto;
+}
