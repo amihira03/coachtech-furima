@@ -1,0 +1,354 @@
+/* public/css/items/show.css */
+
+/* ===== page ===== */
+.items-show {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 32px 24px 56px;
+    box-sizing: border-box;
+}
+
+.items-show__inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 72px;
+    align-items: start;
+}
+
+/* ===== left (image) ===== */
+.items-show__image-wrap {
+    position: relative; /* ← これが最重要：absoluteの基準 */
+    overflow: hidden;
+    border-radius: 6px;
+}
+
+/* sold時：画像を暗くする膜（is-sold を使う版） */
+.items-show__image-wrap.is-sold::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.35);
+    z-index: 1; /* ← 画像の上、Sold文字の下 */
+}
+
+.items-show__image {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.items-show__no-image {
+    width: 100%;
+    height: 100%;
+    display: grid;
+    place-items: center;
+    font-weight: 700;
+    font-size: 22px;
+    color: #000;
+}
+
+/* Sold（画像の上だけ中央） */
+.items-show__sold {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    color: #fff;
+    font-weight: 700;
+    font-size: 44px;
+    letter-spacing: 0.08em;
+    z-index: 2;
+    pointer-events: none;
+}
+
+/* ===== right (info) ===== */
+.items-show__name {
+    margin: 0 0 6px;
+    font-size: 28px;
+    font-weight: 700;
+    color: #000;
+}
+
+.items-show__brand {
+    margin: 0 0 14px;
+    font-size: 14px;
+    color: #5f5f5f;
+}
+
+.items-show__price {
+    margin: 0 0 12px;
+    font-size: 24px;
+    font-weight: 700;
+    color: #000;
+}
+
+/* counts (like / comment) */
+.items-show__count {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    margin-right: 22px;
+    margin-bottom: 14px;
+    vertical-align: top;
+}
+
+.items-show__like-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    background: transparent;
+    padding: 0;
+    cursor: pointer;
+    text-decoration: none; /* a の時 */
+    color: inherit;
+}
+
+.items-show__icon {
+    width: 28px;
+    height: 28px;
+    display: block;
+}
+
+.items-show__count-number {
+    font-size: 14px;
+    color: #000;
+}
+
+/* purchase button */
+.items-show__actions {
+    margin: 10px 0 22px;
+}
+
+.items-show__purchase-button {
+    width: 100%;
+    height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #ff5555;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    text-decoration: none;
+
+    font-weight: 700;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.items-show__purchase-button:hover {
+    opacity: 0.9;
+}
+
+/* disabled states (button) */
+.items-show__purchase-button:disabled {
+    background: #cfcfcf;
+    cursor: not-allowed;
+    opacity: 1;
+}
+
+/* ===== sections ===== */
+.items-show__section {
+    margin-top: 26px;
+}
+
+.items-show__section-title {
+    margin: 0 0 10px;
+    font-size: 18px;
+    font-weight: 700;
+    color: #000;
+}
+
+.items-show__description {
+    margin: 0;
+    white-space: pre-wrap;
+    line-height: 1.7;
+    font-size: 14px;
+    color: #000;
+}
+
+/* meta rows */
+.items-show__meta {
+    display: grid;
+    grid-template-columns: 110px 1fr;
+    gap: 14px;
+    align-items: center;
+    margin-top: 12px;
+}
+
+.items-show__meta-title {
+    margin: 0;
+    font-size: 14px;
+    font-weight: 700;
+    color: #000;
+}
+
+.items-show__categories {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.items-show__category {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4px 12px;
+    border-radius: 999px;
+    background: #e5e5e5;
+    font-size: 12px;
+    color: #000;
+}
+
+.items-show__condition {
+    margin: 0;
+    font-size: 14px;
+    color: #000;
+}
+
+/* ===== comment form ===== */
+.items-show__comment-form textarea {
+    width: 100%;
+    min-height: 160px;
+    padding: 10px 12px;
+    border: 1px solid #5f5f5f;
+    border-radius: 4px;
+    resize: vertical;
+    outline: none;
+    font-size: 14px;
+    line-height: 1.6;
+    box-sizing: border-box;
+}
+
+.items-show__error {
+    margin: 6px 0 0;
+    font-size: 12px;
+    color: #ff5555;
+    line-height: 1.3;
+}
+
+.items-show__comment-submit {
+    width: 100%;
+    height: 44px;
+    margin-top: 14px;
+
+    background: #ff5555;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+
+    font-weight: 700;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.items-show__comment-submit:hover {
+    opacity: 0.9;
+}
+
+.items-show__login-note {
+    margin: 10px 0 0;
+    font-size: 13px;
+    color: #5f5f5f;
+}
+
+/* ===== comments list ===== */
+.items-show__comments {
+    margin-top: 18px;
+}
+
+.items-show__comment {
+    display: grid;
+    grid-template-columns: 44px 1fr;
+    gap: 12px;
+    align-items: start;
+    margin-top: 16px;
+}
+
+/* avatar (placeholder) */
+.items-show__comment::before {
+    content: "";
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: #d9d9d9;
+    display: block;
+}
+
+.items-show__comment-user {
+    margin: 0 0 6px;
+    font-weight: 700;
+    font-size: 14px;
+    color: #000;
+}
+
+.items-show__comment-body {
+    margin: 0;
+    background: #e5e5e5;
+    border-radius: 4px;
+    padding: 10px 12px;
+    font-size: 13px;
+    line-height: 1.6;
+    color: #000;
+    white-space: pre-wrap;
+}
+
+.items-show__no-comments {
+    margin: 12px 0 0;
+    font-size: 13px;
+    color: #5f5f5f;
+}
+
+/* ===== responsive ===== */
+@media (max-width: 1000px) {
+    .items-show__inner {
+        gap: 48px;
+    }
+}
+
+@media (max-width: 900px) {
+    .items-show {
+        padding: 24px 16px 48px;
+    }
+
+    .items-show__inner {
+        grid-template-columns: 1fr;
+        gap: 28px;
+    }
+
+    .items-show__sold {
+        font-size: 36px;
+    }
+}
+
+@media (max-width: 480px) {
+    .items-show__name {
+        font-size: 24px;
+    }
+
+    .items-show__price {
+        font-size: 20px;
+    }
+
+    .items-show__icon {
+        width: 24px;
+        height: 24px;
+    }
+
+    .items-show__meta {
+        grid-template-columns: 96px 1fr;
+        gap: 10px;
+    }
+
+    .items-show__comment::before {
+        width: 38px;
+        height: 38px;
+    }
+
+    .items-show__comment {
+        grid-template-columns: 38px 1fr;
+    }
+}

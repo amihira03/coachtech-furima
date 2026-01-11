@@ -1,0 +1,186 @@
+/* app.css */
+
+/* ===== base ===== */
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: "Inter", sans-serif;
+}
+
+/* ===== header ===== */
+.site-header {
+    background: #000;
+    width: 100%;
+}
+
+.site-header__inner {
+    /* 画面いっぱいに黒帯を伸ばしつつ、中身は適度に整列 */
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 12px 24px;
+
+    display: flex;
+    align-items: center;
+    gap: 24px;
+
+    /* ログイン/登録など、ヘッダー内の見た目高さ統一で使っていた場合 */
+    min-height: 72px;
+}
+
+/* logo */
+.site-header__logo-link {
+    display: inline-flex;
+    align-items: center;
+}
+
+.site-header__logo {
+    height: 20px;
+    width: auto;
+    display: block;
+}
+
+/* search */
+.site-header__search {
+    flex: 1; /* 中央を伸ばす */
+    display: flex;
+    justify-content: center;
+}
+
+.site-header__search-input {
+    width: min(500px, 100%);
+    height: 40px;
+    padding: 0 16px;
+
+    border: 1px solid #ddd;
+    border-radius: 4px;
+
+    font-size: 14px;
+    outline: none;
+}
+
+/* nav */
+.site-header__nav {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    white-space: nowrap;
+}
+
+.site-header__link {
+    color: #fff;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.site-header__link:hover {
+    opacity: 0.85;
+}
+
+/* logout button (見た目はリンク寄りに) */
+.site-header__logout {
+    margin: 0;
+}
+
+.site-header__logout-button {
+    background: transparent;
+    border: none;
+    color: #fff;
+    font-size: 14px;
+    cursor: pointer;
+    padding: 0;
+}
+
+.site-header__logout-button:hover {
+    opacity: 0.85;
+}
+
+/* sell button */
+.site-header__sell-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    height: 40px;
+    padding: 0 18px;
+
+    background: #fff;
+    color: #000;
+    text-decoration: none;
+    border-radius: 4px;
+    border: 1px solid #fff;
+
+    font-size: 14px;
+}
+
+.site-header__sell-button:hover {
+    opacity: 0.9;
+}
+
+/* ===== responsive ===== */
+
+/* 900px以下：折り返し＆検索100%（スマホはOK、タブレットは後で上限を付け直す） */
+@media (max-width: 900px) {
+    .site-header__inner {
+        flex-wrap: wrap;
+        gap: 12px;
+    }
+
+    .site-header__search {
+        order: 3;
+        flex: 1 1 100%;
+        justify-content: flex-start;
+    }
+
+    .site-header__search-input {
+        width: 100%;
+    }
+}
+
+/* ★追加：タブレット幅(481〜900px)だけ「検索が広すぎる」を抑える */
+@media (max-width: 900px) and (min-width: 481px) {
+    .site-header__search {
+        justify-content: center; /* 見た目が好みなら center、左寄せなら消してください */
+    }
+
+    .site-header__search-input {
+        width: min(520px, 100%); /* ここが効きます（広すぎ防止） */
+    }
+}
+
+/* 480px以下：さらに詰める（スマホ） */
+@media (max-width: 480px) {
+    .site-header__inner {
+        padding: 10px 16px;
+    }
+
+    .site-header__nav {
+        gap: 12px;
+    }
+
+    .site-header__link {
+        font-size: 13px;
+    }
+
+    .site-header__logout-button {
+        font-size: 13px;
+    }
+
+    .site-header__sell-button {
+        height: 36px;
+        padding: 0 12px;
+        border-radius: 4px;
+        font-size: 13px;
+    }
+
+    .site-header__search {
+        justify-content: flex-start;
+    }
+
+    .site-header__search-input {
+        height: 36px;
+        font-size: 13px;
+    }
+}

@@ -27,13 +27,6 @@ class UserTableSeeder extends Seeder
                 'created_at' => $now,
                 'updated_at' => $now,
             ],
-            [
-                'name' => '閲覧者',
-                'email' => 'viewer@example.com',
-                'password' => Hash::make('password'),
-                'created_at' => $now,
-                'updated_at' => $now,
-            ],
         ]);
     }
 }

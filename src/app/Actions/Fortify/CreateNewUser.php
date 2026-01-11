@@ -20,13 +20,10 @@ class CreateNewUser implements CreatesNewUsers
             $request->messages()
         )->validate();
 
-        $user = User::create([
+        return User::create([
             'name' => $input['name'],
             'email' => $input['email'],
             'password' => Hash::make($input['password']),
         ]);
-
-
-        return $user;
     }
 }

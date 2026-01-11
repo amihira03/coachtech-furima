@@ -8,6 +8,7 @@ class RegisterResponse implements RegisterResponseContract
 {
     public function toResponse($request)
     {
-        return redirect('/mypage/profile');
+        // 応用要件：会員登録直後はプロフィール設定ではなく、メール認証誘導画面へ
+        return redirect()->route('verification.notice');
     }
 }

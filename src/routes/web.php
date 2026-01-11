@@ -32,6 +32,14 @@ Route::middleware('auth')->group(function () {
     Route::post('/purchase/{item_id}', [PurchaseController::class, 'store'])
         ->name('purchases.store');
 
+    // ===== FN023 Stripe決済 戻り先（追加） =====
+    Route::get('/purchase/{item_id}/success', [PurchaseController::class, 'success'])
+        ->name('purchases.success');
+
+    Route::get('/purchase/{item_id}/cancel', [PurchaseController::class, 'cancel'])
+        ->name('purchases.cancel');
+    // =========================================
+
     // PG07 送付先住所変更（表示）
     Route::get('/purchase/address/{item_id}', [AddressController::class, 'edit'])
         ->name('purchase.address.edit');
@@ -44,7 +52,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/mypage', [MyPageController::class, 'show'])
         ->name('mypage');
 
-    // PG10 プロフィール編集（タスクは後続で実装）
+    // PG10 プロフィール編集
     Route::get('/mypage/profile', [ProfileController::class, 'edit'])
         ->name('profile.edit');
 
@@ -64,24 +72,16 @@ Route::middleware('auth')->group(function () {
 
 // ===== メール認証（応用要件） =====
 
-// 認証誘導画面
+// 誘導画面（1ページに統一）
 Route::get('/email/verify-notice', function () {
     $user = auth()->user();
 
-    // 認証済みなら誘導画面は不要なのでトップへ
     if ($user && $user->hasVerifiedEmail()) {
         return redirect('/');
     }
 
     return view('auth.verify-notice');
 })->middleware('auth')->name('verification.notice');
-
-// 「認証はこちらから」押下時：初回送信して認証画面へ
-Route::post('/email/verify-start', function (Request $request) {
-    $request->user()->sendEmailVerificationNotification();
-
-    return redirect()->route('verification.screen');
-})->middleware('auth')->name('verification.start');
 
 // 認証メール再送（誘導画面の「再送」用）
 Route::post('/email/verification-notification', function (Request $request) {
@@ -90,21 +90,9 @@ Route::post('/email/verification-notification', function (Request $request) {
     return back()->with('status', 'verification-link-sent');
 })->middleware('auth')->name('verification.send');
 
-// 認証リンク（これが無いとメール本文のURL生成で落ちます）
+// 認証リンク（メール本文のURLの受け口）
 Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
     $request->fulfill();
 
-    return redirect('/mypage/profile');
+    return redirect('/mypage/profile'); // 認証完了後はプロフィール設定へ
 })->middleware(['auth', 'signed'])->name('verification.verify');
-
-// メール認証画面（「認証はこちらから」遷移先）
-Route::get('/email/verify', function () {
-    $user = auth()->user();
-
-    // 認証済みなら不要なのでトップへ
-    if ($user && $user->hasVerifiedEmail()) {
-        return redirect('/');
-    }
-
-    return view('auth.verify');
-})->middleware('auth')->name('verification.screen');

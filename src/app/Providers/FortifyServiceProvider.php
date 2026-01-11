@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Actions\Fortify\CreateNewUser;
 use App\Http\Requests\LoginRequest;
+use App\Http\Responses\LoginResponse;
 use App\Http\Responses\RegisterResponse;
 use App\Models\User;
 use Illuminate\Cache\RateLimiting\Limit;
@@ -12,6 +13,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Validation\ValidationException;
+use Laravel\Fortify\Contracts\LoginResponse as LoginResponseContract;
 use Laravel\Fortify\Contracts\RegisterResponse as RegisterResponseContract;
 use Laravel\Fortify\Fortify;
 use Laravel\Fortify\Http\Requests\LoginRequest as FortifyLoginRequestBase;
@@ -25,6 +27,9 @@ class FortifyServiceProvider extends ServiceProvider
 
         // 要件：初回会員登録直後、プロフィール設定へ遷移（FN006）
         $this->app->singleton(RegisterResponseContract::class, RegisterResponse::class);
+
+        // 応用要件：未認証ユーザーがログインした場合、メール認証誘導画面へ
+        $this->app->singleton(LoginResponseContract::class, LoginResponse::class);
     }
 
     public function boot(): void

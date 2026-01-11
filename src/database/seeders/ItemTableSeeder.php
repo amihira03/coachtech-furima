@@ -10,16 +10,20 @@ class ItemTableSeeder extends Seeder
 {
     public function run()
     {
-        $user = User::first();
-        if (!$user) {
+        $users = User::orderBy('id')->take(2)->get();
+
+        if ($users->count() < 2) {
             return;
         }
+
+        $sellerA = $users[0];
+        $sellerB = $users[1];
 
         $now = now();
 
         $items = [
             [
-                'user_id' => $user->id,
+                'user_id' => $sellerA->id,
                 'name' => '腕時計',
                 'brand_name' => 'Rolax',
                 'description' => 'スタイリッシュなデザインのメンズ腕時計',
@@ -33,7 +37,7 @@ class ItemTableSeeder extends Seeder
                 'updated_at' => $now,
             ],
             [
-                'user_id' => $user->id,
+                'user_id' => $sellerA->id,
                 'name' => 'HDD',
                 'brand_name' => '西芝',
                 'description' => '高速で信頼性の高いハードディスク',
@@ -47,7 +51,7 @@ class ItemTableSeeder extends Seeder
                 'updated_at' => $now,
             ],
             [
-                'user_id' => $user->id,
+                'user_id' => $sellerA->id,
                 'name' => '玉ねぎ3束',
                 'brand_name' => null,
                 'description' => '新鮮な玉ねぎ3束のセット',
@@ -61,7 +65,7 @@ class ItemTableSeeder extends Seeder
                 'updated_at' => $now,
             ],
             [
-                'user_id' => $user->id,
+                'user_id' => $sellerB->id,
                 'name' => '革靴',
                 'brand_name' => null,
                 'description' => 'クラシックなデザインの革靴',
@@ -75,7 +79,7 @@ class ItemTableSeeder extends Seeder
                 'updated_at' => $now,
             ],
             [
-                'user_id' => $user->id,
+                'user_id' => $sellerB->id,
                 'name' => 'ノートPC',
                 'brand_name' => null,
                 'description' => '高性能なノートパソコン',
@@ -89,7 +93,7 @@ class ItemTableSeeder extends Seeder
                 'updated_at' => $now,
             ],
             [
-                'user_id' => $user->id,
+                'user_id' => $sellerB->id,
                 'name' => 'マイク',
                 'brand_name' => null,
                 'description' => '高音質のレコーディング用マイク',
@@ -103,7 +107,7 @@ class ItemTableSeeder extends Seeder
                 'updated_at' => $now,
             ],
             [
-                'user_id' => $user->id,
+                'user_id' => $sellerB->id,
                 'name' => 'ショルダーバッグ',
                 'brand_name' => null,
                 'description' => 'おしゃれなショルダーバッグ',
@@ -117,7 +121,7 @@ class ItemTableSeeder extends Seeder
                 'updated_at' => $now,
             ],
             [
-                'user_id' => $user->id,
+                'user_id' => $sellerB->id,
                 'name' => 'タンブラー',
                 'brand_name' => null,
                 'description' => '使いやすいタンブラー',
@@ -131,7 +135,7 @@ class ItemTableSeeder extends Seeder
                 'updated_at' => $now,
             ],
             [
-                'user_id' => $user->id,
+                'user_id' => $sellerA->id,
                 'name' => 'コーヒーミル',
                 'brand_name' => 'Starbacks',
                 'description' => '手動のコーヒーミル',
@@ -145,7 +149,7 @@ class ItemTableSeeder extends Seeder
                 'updated_at' => $now,
             ],
             [
-                'user_id' => $user->id,
+                'user_id' => $sellerA->id,
                 'name' => 'メイクセット',
                 'brand_name' => null,
                 'description' => '便利なメイクアップセット',
