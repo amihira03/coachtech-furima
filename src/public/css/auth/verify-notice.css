@@ -1,20 +1,16 @@
-/* ==============================
-   verify-notice (Figma style)
-   ============================== */
-
 .verify-notice {
     width: 100%;
     padding: 72px 16px;
     background: #fff;
 }
 
-.verify-notice__inner {
+.verify-notice-inner {
     max-width: 720px;
     margin: 0 auto;
     text-align: center;
 }
 
-.verify-notice__message {
+.verify-notice-message {
     margin: 0;
     font-size: 16px;
     font-weight: 700;
@@ -23,7 +19,7 @@
 }
 
 /* ボタン・リンク群のまとまり */
-.verify-notice__actions {
+.verify-notice-actions {
     margin-top: 28px;
     display: flex;
     flex-direction: column;
@@ -32,7 +28,7 @@
 }
 
 /* 「認証はこちらから」(Figma風：薄グレー＋黒枠) */
-.verify-notice__button {
+.verify-notice-button {
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -52,12 +48,12 @@
     cursor: pointer;
 }
 
-.verify-notice__button:hover {
+.verify-notice-button:hover {
     opacity: 0.85;
 }
 
 /* ステータス（再送しました） */
-.verify-notice__status {
+.verify-notice-status {
     margin: 0;
     font-size: 14px;
     font-weight: 700;
@@ -65,7 +61,7 @@
 }
 
 /* 「認証メールを再送する」(Figma風：青リンク) */
-.verify-notice__resend-button {
+.verify-notice-resend-button {
     padding: 0;
     border: none;
     background: transparent;
@@ -78,7 +74,7 @@
     cursor: pointer;
 }
 
-.verify-notice__resend-button:hover {
+.verify-notice-resend-button:hover {
     opacity: 0.8;
 }
 
@@ -88,7 +84,7 @@
         padding: 56px 16px;
     }
 
-    .verify-notice__button {
+    .verify-notice-button {
         width: 100%;
         max-width: 320px;
     }

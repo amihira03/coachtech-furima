@@ -24,8 +24,8 @@
 
                                 if ($image) {
                                     $imageUrl = str_starts_with($image, 'images/goods/')
-                                        ? asset($image) // 初期データ（public）
-                                        : \Illuminate\Support\Facades\Storage::url($image); // 出品画像（storage）
+                                        ? asset($image)
+                                        : \Illuminate\Support\Facades\Storage::url($image);
                                 }
                             @endphp
 

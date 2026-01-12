@@ -17,36 +17,35 @@
     @endphp
 
     <main class="mypage">
-        <div class="mypage__inner">
+        <div class="mypage-inner">
 
-            <section class="mypage__profile">
-                <div class="mypage__profile-image">
+            <section class="mypage-profile">
+                <div class="mypage-profile-image">
                     @if ($profileImageUrl)
-                        <img class="mypage__profile-image-src" src="{{ $profileImageUrl }}" alt="プロフィール画像">
+                        <img class="mypage-profile-image-src" src="{{ $profileImageUrl }}" alt="プロフィール画像">
                     @endif
                 </div>
 
-                <p class="mypage__profile-name">{{ $user->name }}</p>
+                <p class="mypage-profile-name">{{ $user->name }}</p>
 
-                <a class="mypage__profile-edit" href="{{ route('profile.edit') }}">
+                <a class="mypage-profile-edit" href="{{ route('profile.edit') }}">
                     プロフィールを編集
                 </a>
             </section>
 
-            <nav class="mypage__tabs">
-                <a href="{{ url('/mypage?page=sell') }}" class="mypage__tab {{ $isSell ? 'is-active' : '' }}">
+            <nav class="mypage-tabs">
+                <a href="{{ url('/mypage?page=sell') }}" class="mypage-tab {{ $isSell ? 'is-active' : '' }}">
                     出品した商品
                 </a>
 
-                <a href="{{ url('/mypage?page=buy') }}" class="mypage__tab {{ !$isSell ? 'is-active' : '' }}">
+                <a href="{{ url('/mypage?page=buy') }}" class="mypage-tab {{ !$isSell ? 'is-active' : '' }}">
                     購入した商品
                 </a>
             </nav>
 
-            <section class="mypage__list">
+            <section class="mypage-list">
                 @if (!$isSell)
-                    {{-- buy items --}}
-                    <div class="mypage__grid">
+                    <div class="mypage-grid">
                         @forelse ($buyItems as $item)
                             @php
                                 $image = $item->image_path ?? null;
@@ -59,25 +58,23 @@
                                 }
                             @endphp
 
-                            <a class="mypage__card" href="{{ url('/item/' . $item->id) }}">
-                                <div class="mypage__card-image-wrap">
+                            <a class="mypage-card" href="{{ url('/item/' . $item->id) }}">
+                                <div class="mypage-card-image-wrap">
                                     @if ($imageUrl)
-                                        <img class="mypage__card-image" src="{{ $imageUrl }}"
-                                            alt="{{ $item->name }}">
+                                        <img class="mypage-card-image" src="{{ $imageUrl }}" alt="{{ $item->name }}">
                                     @else
-                                        <div class="mypage__card-no-image">商品画像</div>
+                                        <div class="mypage-card-no-image">商品画像</div>
                                     @endif
                                 </div>
 
-                                <p class="mypage__card-name">{{ $item->name }}</p>
+                                <p class="mypage-card-name">{{ $item->name }}</p>
                             </a>
                         @empty
-                            <p class="mypage__empty">購入した商品はありません。</p>
+                            <p class="mypage-empty">購入した商品はありません。</p>
                         @endforelse
                     </div>
                 @else
-                    {{-- sell items --}}
-                    <div class="mypage__grid">
+                    <div class="mypage-grid">
                         @forelse ($sellItems as $item)
                             @php
                                 $image = $item->image_path ?? null;
@@ -92,24 +89,24 @@
                                 $isSold = !empty($item->purchase);
                             @endphp
 
-                            <a class="mypage__card" href="{{ url('/item/' . $item->id) }}">
-                                <div class="mypage__card-image-wrap {{ $isSold ? 'is-sold' : '' }}">
+                            <a class="mypage-card" href="{{ url('/item/' . $item->id) }}">
+                                <div class="mypage-card-image-wrap {{ $isSold ? 'is-sold' : '' }}">
                                     @if ($imageUrl)
-                                        <img class="mypage__card-image" src="{{ $imageUrl }}"
+                                        <img class="mypage-card-image" src="{{ $imageUrl }}"
                                             alt="{{ $item->name }}">
                                     @else
-                                        <div class="mypage__card-no-image">商品画像</div>
+                                        <div class="mypage-card-no-image">商品画像</div>
                                     @endif
 
                                     @if ($isSold)
-                                        <span class="mypage__sold">Sold</span>
+                                        <span class="mypage-sold">Sold</span>
                                     @endif
                                 </div>
 
-                                <p class="mypage__card-name">{{ $item->name }}</p>
+                                <p class="mypage-card-name">{{ $item->name }}</p>
                             </a>
                         @empty
-                            <p class="mypage__empty">出品した商品はありません。</p>
+                            <p class="mypage-empty">出品した商品はありません。</p>
                         @endforelse
                     </div>
                 @endif

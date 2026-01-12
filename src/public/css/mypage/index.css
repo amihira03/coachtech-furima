@@ -8,13 +8,13 @@
     box-sizing: border-box;
 }
 
-.mypage__inner {
+.mypage-inner {
     max-width: 1100px; /* 見本の余白感に寄せる */
     margin: 0 auto;
 }
 
 /* ===== profile header ===== */
-.mypage__profile {
+.mypage-profile {
     display: grid;
     grid-template-columns: 140px 1fr auto;
     align-items: center;
@@ -22,7 +22,7 @@
     padding: 26px 0;
 }
 
-.mypage__profile-image {
+.mypage-profile-image {
     width: 120px;
     height: 120px;
     border-radius: 999px;
@@ -30,21 +30,21 @@
     overflow: hidden;
 }
 
-.mypage__profile-image-src {
+.mypage-profile-image-src {
     width: 100%;
     height: 100%;
     object-fit: cover;
     display: block;
 }
 
-.mypage__profile-name {
+.mypage-profile-name {
     margin: 0;
     font-size: 28px;
     font-weight: 700;
     color: #000;
 }
 
-.mypage__profile-edit {
+.mypage-profile-edit {
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -63,12 +63,12 @@
     background: #fff;
 }
 
-.mypage__profile-edit:hover {
+.mypage-profile-edit:hover {
     opacity: 0.9;
 }
 
 /* ===== tabs ===== */
-.mypage__tabs {
+.mypage-tabs {
     display: flex;
     align-items: flex-end;
     gap: 48px;
@@ -77,7 +77,7 @@
     border-bottom: 1px solid #5f5f5f;
 }
 
-.mypage__tab {
+.mypage-tab {
     display: inline-flex;
     align-items: center;
     height: 100%;
@@ -89,28 +89,28 @@
     font-weight: 700;
 }
 
-.mypage__tab.is-active {
+.mypage-tab.is-active {
     color: #ff5555;
 }
 
 /* ===== list ===== */
-.mypage__list {
+.mypage-list {
     padding-top: 32px;
 }
 
-.mypage__grid {
+.mypage-grid {
     display: grid;
     grid-template-columns: repeat(4, minmax(0, 1fr));
     gap: 32px;
 }
 
-.mypage__card {
+.mypage-card {
     display: block;
     text-decoration: none;
     color: inherit;
 }
 
-.mypage__card-image-wrap {
+.mypage-card-image-wrap {
     position: relative;
     overflow: hidden;
     border-radius: 6px;
@@ -121,7 +121,7 @@
 }
 
 /* sold：暗くする膜 */
-.mypage__card-image-wrap.is-sold::after {
+.mypage-card-image-wrap.is-sold::after {
     content: "";
     position: absolute;
     inset: 0;
@@ -129,14 +129,14 @@
     z-index: 1;
 }
 
-.mypage__card-image {
+.mypage-card-image {
     width: 100%;
     height: 100%;
     object-fit: cover;
     display: block;
 }
 
-.mypage__card-no-image {
+.mypage-card-no-image {
     width: 100%;
     height: 100%;
     display: grid;
@@ -147,7 +147,7 @@
     color: #000;
 }
 
-.mypage__sold {
+.mypage-sold {
     position: absolute;
     inset: 0;
     display: grid;
@@ -162,14 +162,14 @@
     pointer-events: none;
 }
 
-.mypage__card-name {
+.mypage-card-name {
     margin: 12px 0 0;
     font-size: 16px;
     font-weight: 400;
     color: #000;
 }
 
-.mypage__empty {
+.mypage-empty {
     margin: 0;
     padding: 24px 0 0;
     color: #5f5f5f;
@@ -178,11 +178,11 @@
 
 /* ===== responsive ===== */
 @media (max-width: 1000px) {
-    .mypage__grid {
+    .mypage-grid {
         grid-template-columns: repeat(3, minmax(0, 1fr));
     }
 
-    .mypage__profile {
+    .mypage-profile {
         grid-template-columns: 140px 1fr;
         grid-template-areas:
             "image name"
@@ -190,15 +190,15 @@
         align-items: center;
     }
 
-    .mypage__profile-image {
+    .mypage-profile-image {
         grid-area: image;
     }
 
-    .mypage__profile-name {
+    .mypage-profile-name {
         grid-area: name;
     }
 
-    .mypage__profile-edit {
+    .mypage-profile-edit {
         grid-area: edit;
         justify-self: start;
     }
@@ -209,52 +209,52 @@
         padding: 24px 16px 48px;
     }
 
-    .mypage__grid {
+    .mypage-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
         gap: 20px;
     }
 
-    .mypage__tabs {
+    .mypage-tabs {
         gap: 32px;
     }
 }
 
 @media (max-width: 480px) {
-    .mypage__profile {
+    .mypage-profile {
         grid-template-columns: 96px 1fr;
         gap: 16px;
         padding: 18px 0;
     }
 
-    .mypage__profile-image {
+    .mypage-profile-image {
         width: 84px;
         height: 84px;
     }
 
-    .mypage__profile-name {
+    .mypage-profile-name {
         font-size: 22px;
     }
 
-    .mypage__profile-edit {
+    .mypage-profile-edit {
         height: 40px;
         padding: 0 16px;
         font-size: 14px;
     }
 
-    .mypage__tabs {
+    .mypage-tabs {
         height: 56px;
         gap: 24px;
     }
 
-    .mypage__tab {
+    .mypage-tab {
         font-size: 16px;
     }
 
-    .mypage__card-name {
+    .mypage-card-name {
         font-size: 14px;
     }
 
-    .mypage__sold {
+    .mypage-sold {
         font-size: 22px;
     }
 }

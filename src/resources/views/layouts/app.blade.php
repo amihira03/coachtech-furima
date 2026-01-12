@@ -18,36 +18,36 @@
 
 <body>
     <header class="site-header">
-        <div class="site-header__inner">
-            <a class="site-header__logo-link" href="/">
-                <img class="site-header__logo" src="{{ asset('images/logo.png') }}" alt="COACHTECH">
+        <div class="site-header-inner">
+            <a class="site-header-logo-link" href="/">
+                <img class="site-header-logo" src="{{ asset('images/logo.png') }}" alt="COACHTECH">
             </a>
 
             @unless (request()->is('login') || request()->is('register'))
-                <form action="/" method="GET" class="site-header__search">
+                <form action="/" method="GET" class="site-header-search">
                     @if (request('tab') === 'mylist')
                         <input type="hidden" name="tab" value="mylist">
                     @endif
 
-                    <input class="site-header__search-input" type="text" name="keyword" value="{{ request('keyword') }}"
+                    <input class="site-header-search-input" type="text" name="keyword" value="{{ request('keyword') }}"
                         placeholder="なにをお探しですか？">
                 </form>
 
-                <nav class="site-header__nav">
+                <nav class="site-header-nav">
                     @guest
-                        <a href="/login" class="site-header__link">ログイン</a>
+                        <a href="/login" class="site-header-link">ログイン</a>
                     @endguest
 
                     @auth
-                        <form method="POST" action="{{ route('logout') }}" class="site-header__logout">
+                        <form method="POST" action="{{ route('logout') }}" class="site-header-logout">
                             @csrf
-                            <button type="submit" class="site-header__logout-button">ログアウト</button>
+                            <button type="submit" class="site-header-logout-button">ログアウト</button>
                         </form>
                     @endauth
 
-                    <a href="/mypage" class="site-header__link">マイページ</a>
+                    <a href="/mypage" class="site-header-link">マイページ</a>
 
-                    <a href="/sell" class="site-header__sell-button">出品</a>
+                    <a href="/sell" class="site-header-sell-button">出品</a>
                 </nav>
             @endunless
 

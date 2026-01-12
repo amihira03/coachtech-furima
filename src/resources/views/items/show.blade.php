@@ -6,137 +6,137 @@
 
 @section('content')
     <main class="items-show">
-        <div class="items-show__inner">
+        <div class="items-show-inner">
 
-            <section class="items-show__left">
-                <div class="items-show__image-wrap {{ $item->purchase ? 'is-sold' : '' }}">
+            <section class="items-show-left">
+                <div class="items-show-image-wrap {{ $item->purchase ? 'is-sold' : '' }}">
                     @php
                         $image = $item->image_path ?? null;
                         $imageUrl = null;
 
                         if ($image) {
                             $imageUrl = str_starts_with($image, 'images/goods/')
-                                ? asset($image) // 初期データ（public）
-                                : \Illuminate\Support\Facades\Storage::url($image); // 出品画像（storage）
+                                ? asset($image)
+                                : \Illuminate\Support\Facades\Storage::url($image);
                         }
                     @endphp
 
                     @if ($imageUrl)
-                        <img class="items-show__image" src="{{ $imageUrl }}" alt="{{ $item->name }}">
+                        <img class="items-show-image" src="{{ $imageUrl }}" alt="{{ $item->name }}">
                     @else
-                        <div class="items-show__no-image">商品画像</div>
+                        <div class="items-show-no-image">商品画像</div>
                     @endif
                     @if ($item->purchase)
-                        <span class="items-show__sold">Sold</span>
+                        <span class="items-show-sold">Sold</span>
                     @endif
                 </div>
             </section>
 
-            <section class="items-show__right">
-                <h1 class="items-show__name">{{ $item->name }}</h1>
+            <section class="items-show-right">
+                <h1 class="items-show-name">{{ $item->name }}</h1>
 
                 @if (!empty($item->brand_name))
-                    <p class="items-show__brand">{{ $item->brand_name }}</p>
+                    <p class="items-show-brand">{{ $item->brand_name }}</p>
                 @endif
 
-                <p class="items-show__price">¥{{ number_format($item->price) }}</p>
+                <p class="items-show-price">¥{{ number_format($item->price) }}</p>
 
-                <div class="items-show__count">
+                <div class="items-show-count">
                     @auth
                         <form method="POST" action="{{ route('items.like', ['item_id' => $item->id]) }}">
                             @csrf
-                            <button type="submit" class="items-show__like-button">
-                                <img class="items-show__icon"
+                            <button type="submit" class="items-show-like-button">
+                                <img class="items-show-icon"
                                     src="{{ asset($isLiked ? 'images/icons/heart-liked.png' : 'images/icons/heart-default.png') }}"
                                     alt="いいね">
                             </button>
                         </form>
                     @else
-                        <a href="/login" class="items-show__like-button">
-                            <img class="items-show__icon" src="{{ asset('images/icons/heart-default.png') }}"
+                        <a href="/login" class="items-show-like-button">
+                            <img class="items-show-icon" src="{{ asset('images/icons/heart-default.png') }}"
                                 alt="いいね（ログインが必要です）">
                         </a>
                     @endauth
-                    <span class="items-show__count-number">{{ $item->likes_count }}</span>
+                    <span class="items-show-count-number">{{ $item->likes_count }}</span>
                 </div>
 
-                <div class="items-show__count">
-                    <img class="items-show__icon" src="{{ asset('images/icons/comment.png') }}" alt="コメント">
-                    <span class="items-show__count-number">{{ $item->comments_count }}</span>
+                <div class="items-show-count">
+                    <img class="items-show-icon" src="{{ asset('images/icons/comment.png') }}" alt="コメント">
+                    <span class="items-show-count-number">{{ $item->comments_count }}</span>
                 </div>
 
-                <div class="items-show__actions">
+                <div class="items-show-actions">
                     @if ($item->purchase)
-                        <button class="items-show__purchase-button" type="button" disabled>売り切れました</button>
+                        <button class="items-show-purchase-button" type="button" disabled>売り切れました</button>
                     @elseif (auth()->check() && $item->user_id === auth()->id())
-                        <button class="items-show__purchase-button" type="button" disabled>自分の商品です</button>
+                        <button class="items-show-purchase-button" type="button" disabled>自分の商品です</button>
                     @else
-                        <a class="items-show__purchase-button" href="/purchase/{{ $item->id }}">購入手続きへ</a>
+                        <a class="items-show-purchase-button" href="/purchase/{{ $item->id }}">購入手続きへ</a>
                     @endif
                 </div>
 
-                <section class="items-show__section">
-                    <h2 class="items-show__section-title">商品説明</h2>
-                    <p class="items-show__description">{{ $item->description }}</p>
+                <section class="items-show-section">
+                    <h2 class="items-show-section-title">商品説明</h2>
+                    <p class="items-show-description">{{ $item->description }}</p>
                 </section>
 
-                <section class="items-show__section">
-                    <h2 class="items-show__section-title">商品の情報</h2>
+                <section class="items-show-section">
+                    <h2 class="items-show-section-title">商品の情報</h2>
 
-                    <div class="items-show__meta">
-                        <p class="items-show__meta-title">カテゴリ</p>
-                        <div class="items-show__categories">
+                    <div class="items-show-meta">
+                        <p class="items-show-meta-title">カテゴリ</p>
+                        <div class="items-show-categories">
                             @foreach ($item->categories as $category)
-                                <span class="items-show__category">{{ $category->name }}</span>
+                                <span class="items-show-category">{{ $category->name }}</span>
                             @endforeach
                         </div>
                     </div>
 
-                    <div class="items-show__meta">
-                        <p class="items-show__meta-title">商品の状態</p>
-                        <p class="items-show__condition">{{ $item->condition }}</p>
+                    <div class="items-show-meta">
+                        <p class="items-show-meta-title">商品の状態</p>
+                        <p class="items-show-condition">{{ $item->condition }}</p>
                     </div>
                 </section>
 
-                <section class="items-show__section">
-                    <h2 class="items-show__section-title">コメント（{{ $item->comments_count }}）</h2>
+                <section class="items-show-section">
+                    <h2 class="items-show-section-title">コメント（{{ $item->comments_count }}）</h2>
 
                     @auth
                         <form method="POST" action="{{ route('items.comment.store', ['item_id' => $item->id]) }}" novalidate>
                             @csrf
 
-                            <div class="items-show__comment-form">
+                            <div class="items-show-comment-form">
                                 <textarea name="body" rows="4" placeholder="商品へのコメント">{{ old('body') }}</textarea>
 
                                 @error('body')
-                                    <p class="items-show__error">{{ $message }}</p>
+                                    <p class="items-show-error">{{ $message }}</p>
                                 @enderror
                             </div>
 
-                            <button type="submit" class="items-show__comment-submit">
+                            <button type="submit" class="items-show-comment-submit">
                                 コメントを送信する
                             </button>
                         </form>
                     @else
-                        <p class="items-show__login-note">
+                        <p class="items-show-login-note">
                             ※ コメントを投稿するにはログインが必要です
                         </p>
                     @endauth
 
-                    <div class="items-show__comments">
+                    <div class="items-show-comments">
                         @forelse ($item->comments as $comment)
-                            <div class="items-show__comment">
-                                <p class="items-show__comment-user">{{ $comment->user->name }}</p>
-                                <p class="items-show__comment-body">{{ $comment->body }}</p>
+                            <div class="items-show-comment">
+                                <p class="items-show-comment-user">{{ $comment->user->name }}</p>
+                                <p class="items-show-comment-body">{{ $comment->body }}</p>
                             </div>
                         @empty
-                            <p class="items-show__no-comments">コメントはまだありません</p>
+                            <p class="items-show-no-comments">コメントはまだありません</p>
                         @endforelse
                     </div>
                 </section>
 
-            </section> {{-- items-show__right --}}
+            </section>
 
-        </div> {{-- items-show__inner --}}
+        </div>
     </main>
 @endsection

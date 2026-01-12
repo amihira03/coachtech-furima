@@ -12,7 +12,7 @@ body {
     width: 100%;
 }
 
-.site-header__inner {
+.site-header-inner {
     max-width: 1400px;
     margin: 0 auto;
     padding: 12px 24px;
@@ -21,24 +21,24 @@ body {
     min-height: 72px;
 }
 
-.site-header__logo-link {
+.site-header-logo-link {
     display: inline-flex;
     align-items: center;
 }
 
-.site-header__logo {
+.site-header-logo {
     height: 20px;
     width: auto;
     display: block;
 }
 
-.site-header__search {
+.site-header-search {
     flex: 1;
     display: flex;
     justify-content: center;
 }
 
-.site-header__search-input {
+.site-header-search-input {
     width: min(500px, 100%);
     height: 40px;
     padding: 0 16px;
@@ -50,28 +50,28 @@ body {
     outline: none;
 }
 
-.site-header__nav {
+.site-header-nav {
     display: flex;
     align-items: center;
     gap: 18px;
     white-space: nowrap;
 }
 
-.site-header__link {
+.site-header-link {
     color: #fff;
     text-decoration: none;
     font-size: 14px;
 }
 
-.site-header__link:hover {
+.site-header-link:hover {
     opacity: 0.85;
 }
 
-.site-header__logout {
+.site-header-logout {
     margin: 0;
 }
 
-.site-header__logout-button {
+.site-header-logout-button {
     background: transparent;
     border: none;
     color: #fff;
@@ -80,11 +80,11 @@ body {
     padding: 0;
 }
 
-.site-header__logout-button:hover {
+.site-header-logout-button:hover {
     opacity: 0.85;
 }
 
-.site-header__sell-button {
+.site-header-sell-button {
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -101,33 +101,33 @@ body {
     font-size: 14px;
 }
 
-.site-header__sell-button:hover {
+.site-header-sell-button:hover {
     opacity: 0.9;
 }
 
 @media (max-width: 900px) {
-    .site-header__inner {
+    .site-header-inner {
         flex-wrap: wrap;
         gap: 12px;
     }
 
-    .site-header__search {
+    .site-header-search {
         order: 3;
         flex: 1 1 100%;
         justify-content: flex-start;
     }
 
-    .site-header__search-input {
+    .site-header-search-input {
         width: 100%;
     }
 }
 
 @media (max-width: 900px) and (min-width: 481px) {
-    .site-header__search {
+    .site-header-search {
         justify-content: center;
     }
 
-    .site-header__search-input {
+    .site-header-search-input {
         width: min(520px, 100%);
     }
 }

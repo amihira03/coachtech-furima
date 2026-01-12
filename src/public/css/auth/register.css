@@ -2,7 +2,7 @@
     padding: 80px 16px;
 }
 
-.register__inner {
+.register-inner {
     width: 100%;
     max-width: 680px;
     margin: 0 auto;
@@ -10,7 +10,7 @@
     text-align: center;
 }
 
-.register__title {
+.register-title {
     margin: 0 0 32px;
     font-weight: 700;
     font-size: 32px;
@@ -19,17 +19,17 @@
     text-align: center;
 }
 
-.register__form {
+.register-form {
     margin-top: 16px;
 }
 
-.register__group {
+.register-group {
     margin: 0 0 18px;
     text-align: left;
 }
 
 /* ラベル */
-.register__label {
+.register-label {
     display: block;
     margin: 0 0 8px;
     font-weight: 700;
@@ -39,7 +39,7 @@
 }
 
 /* 入力欄 */
-.register__input {
+.register-input {
     width: 100%;
     height: 48px;
     padding: 8px 12px;
@@ -49,7 +49,7 @@
 }
 
 /* ボタン */
-.register__button {
+.register-button {
     width: 100%;
     height: 48px;
     margin-top: 8px;
@@ -65,17 +65,17 @@
     cursor: pointer;
 }
 
-.register__button:hover {
+.register-button:hover {
     opacity: 0.9;
 }
 
 /* リンク（ログインはこちら） */
-.register__link {
+.register-link {
     margin-top: 22px;
     text-align: center;
 }
 
-.register__link a {
+.register-link a {
     color: #0073cc;
     text-decoration: none;
     font-weight: 400;
@@ -84,12 +84,12 @@
     letter-spacing: 0;
 }
 
-.register__link a:hover {
+.register-link a:hover {
     text-decoration: underline;
 }
 
 /* エラー表示（レイアウトズレ防止） */
-.register__error {
+.register-error {
     margin: 6px 0 0;
     font-size: 12px;
     color: #ff5555;
@@ -102,19 +102,19 @@
         padding: 48px 16px;
     }
 
-    .register__inner {
+    .register-inner {
         padding: 24px 16px;
     }
 
-    .register__title {
+    .register-title {
         font-size: 28px;
     }
 
-    .register__label {
+    .register-label {
         font-size: 18px;
     }
 
-    .register__button {
+    .register-button {
         font-size: 20px;
     }
 }
