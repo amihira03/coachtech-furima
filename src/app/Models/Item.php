@@ -26,13 +26,11 @@ class Item extends Model
         'shipping_building',
     ];
 
-    // 出品者（items.user_id）
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
 
-    // カテゴリ（N:M / 中間: category_items）
     public function categories(): BelongsToMany
     {
         return $this->belongsToMany(Category::class, 'category_items');
@@ -48,7 +46,6 @@ class Item extends Model
         return $this->hasMany(Comment::class);
     }
 
-    // purchases.item_id が UNIQUE → 最大1件
     public function purchase(): HasOne
     {
         return $this->hasOne(Purchase::class);

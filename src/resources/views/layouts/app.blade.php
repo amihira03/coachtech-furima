@@ -23,7 +23,6 @@
                 <img class="site-header__logo" src="{{ asset('images/logo.png') }}" alt="COACHTECH">
             </a>
 
-            {{-- 検索バー：ログイン/会員登録以外は表示 --}}
             @unless (request()->is('login') || request()->is('register'))
                 <form action="/" method="GET" class="site-header__search">
                     @if (request('tab') === 'mylist')
@@ -35,12 +34,10 @@
                 </form>
 
                 <nav class="site-header__nav">
-                    {{-- 未ログイン時：ログインを表示 --}}
                     @guest
                         <a href="/login" class="site-header__link">ログイン</a>
                     @endguest
 
-                    {{-- ログイン時：ログアウトを表示 --}}
                     @auth
                         <form method="POST" action="{{ route('logout') }}" class="site-header__logout">
                             @csrf
@@ -48,10 +45,8 @@
                         </form>
                     @endauth
 
-                    {{-- マイページ：ログイン状態に関わらず表示（押したらauthで/loginへ） --}}
                     <a href="/mypage" class="site-header__link">マイページ</a>
 
-                    {{-- 出品：ログイン状態に関わらず表示（押したらauthで/loginへ） --}}
                     <a href="/sell" class="site-header__sell-button">出品</a>
                 </nav>
             @endunless

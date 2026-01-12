@@ -17,11 +17,9 @@ class ProfileController extends Controller
     {
         $user = Auth::user();
 
-        // 画像がアップロードされている場合のみ保存
         if ($request->hasFile('profile_image')) {
             $path = $request->file('profile_image')->store('profiles', 'public');
 
-            // 既存画像があれば削除
             if (!empty($user->profile_image_path)) {
                 Storage::disk('public')->delete($user->profile_image_path);
             }
@@ -29,7 +27,6 @@ class ProfileController extends Controller
             $user->profile_image_path = $path;
         }
 
-        // 住所・名前などの更新
         $user->name = $request->input('name');
         $user->postal_code = $request->input('postal_code');
         $user->address = $request->input('address');

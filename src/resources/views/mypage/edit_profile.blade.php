@@ -14,23 +14,11 @@
         <div class="profile-edit__inner">
             <h1 class="profile-edit__title">プロフィール設定</h1>
 
-            {{-- 全体エラー（ProfileRequest導入後もそのまま使える） --}}
-            @if ($errors->any())
-                <div class="profile-edit__error-box" role="alert">
-                    <ul class="profile-edit__error-list">
-                        @foreach ($errors->all() as $error)
-                            <li class="profile-edit__error-item">{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            @endif
-
-            <form class="profile-edit__form" action="{{ route('profile.update') }}" method="POST"
-                enctype="multipart/form-data" novalidate>
+            <form class="profile-edit__form" action="{{ route('profile.update') }}" method="POST" enctype="multipart/form-data"
+                novalidate>
                 @csrf
                 @method('PATCH')
 
-                {{-- 画像 --}}
                 <div class="profile-edit__group">
 
                     <div class="profile-edit__image-row">
@@ -46,7 +34,7 @@
                                 画像を選択する
                             </label>
                             <input class="profile-edit__file-input" type="file" name="profile_image" id="profile_image"
-                                accept=".png,.jpg,.jpeg">
+                                accept=".png,.jpeg">
                         </div>
                     </div>
 
@@ -55,7 +43,6 @@
                     @enderror
                 </div>
 
-                {{-- ユーザー名 --}}
                 <div class="profile-edit__group">
                     <label class="profile-edit__label" for="name">ユーザー名</label>
                     <input class="profile-edit__input" type="text" name="name" id="name"
@@ -66,7 +53,6 @@
                     @enderror
                 </div>
 
-                {{-- 郵便番号 --}}
                 <div class="profile-edit__group">
                     <label class="profile-edit__label" for="postal_code">郵便番号</label>
                     <input class="profile-edit__input" type="text" name="postal_code" id="postal_code"
@@ -77,7 +63,6 @@
                     @enderror
                 </div>
 
-                {{-- 住所 --}}
                 <div class="profile-edit__group">
                     <label class="profile-edit__label" for="address">住所</label>
                     <input class="profile-edit__input" type="text" name="address" id="address"
@@ -88,7 +73,6 @@
                     @enderror
                 </div>
 
-                {{-- 建物名 --}}
                 <div class="profile-edit__group">
                     <label class="profile-edit__label" for="building">建物名</label>
                     <input class="profile-edit__input" type="text" name="building" id="building"

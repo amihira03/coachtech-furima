@@ -17,6 +17,7 @@ class CreateCategoryItemsTable extends Migration
             $table->id();
             $table->foreignId('item_id')->constrained('items');
             $table->foreignId('category_id')->constrained('categories');
+            $table->unique(['item_id', 'category_id']);
             $table->timestamps();
         });
     }

@@ -14,11 +14,10 @@
                 @csrf
                 @method('PATCH')
 
-                {{-- 郵便番号 --}}
                 <div class="edit-address__group">
                     <label class="edit-address__label" for="shipping_postal_code">郵便番号</label>
                     <input class="edit-address__input" type="text" name="shipping_postal_code" id="shipping_postal_code"
-                        value="{{ old('shipping_postal_code', $shipping_postal_code ?? '') }}">
+                        value="{{ old('shipping_postal_code', $shipping_postal_code ?? '') }}" placeholder="例：123-4567">
                     <p class="edit-address__error">
                         @error('shipping_postal_code')
                             {{ $message }}
@@ -26,7 +25,6 @@
                     </p>
                 </div>
 
-                {{-- 住所 --}}
                 <div class="edit-address__group">
                     <label class="edit-address__label" for="shipping_address">住所</label>
                     <input class="edit-address__input" type="text" name="shipping_address" id="shipping_address"
@@ -38,7 +36,6 @@
                     </p>
                 </div>
 
-                {{-- 建物名 --}}
                 <div class="edit-address__group">
                     <label class="edit-address__label" for="shipping_building">建物名</label>
                     <input class="edit-address__input" type="text" name="shipping_building" id="shipping_building"

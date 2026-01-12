@@ -18,10 +18,9 @@
                 novalidate>
                 @csrf
 
-                {{-- 商品画像 --}}
                 <div class="sell-create__group">
                     <label class="sell-create__label" for="image">商品画像</label>
-                    <input class="sell-create__file" id="image" type="file" name="image" accept="image/*">
+                    <input class="sell-create__file" id="image" type="file" name="image" accept=".png,.jpeg">
 
                     @error('image')
                         <p class="sell-create__error">{{ $message }}</p>
@@ -30,7 +29,6 @@
                     @enderror
                 </div>
 
-                {{-- 商品名 --}}
                 <div class="sell-create__group">
                     <label class="sell-create__label" for="name">商品名</label>
                     <input class="sell-create__input" id="name" type="text" name="name"
@@ -43,7 +41,6 @@
                     @enderror
                 </div>
 
-                {{-- ブランド名 --}}
                 <div class="sell-create__group">
                     <label class="sell-create__label" for="brand_name">ブランド名</label>
                     <input class="sell-create__input" id="brand_name" type="text" name="brand_name"
@@ -56,7 +53,6 @@
                     @enderror
                 </div>
 
-                {{-- 商品説明 --}}
                 <div class="sell-create__group">
                     <label class="sell-create__label" for="description">商品説明</label>
                     <textarea class="sell-create__textarea" id="description" name="description" rows="6">{{ old('description') }}</textarea>
@@ -68,7 +64,6 @@
                     @enderror
                 </div>
 
-                {{-- カテゴリ（複数選択） --}}
                 <div class="sell-create__group">
                     <p class="sell-create__label">カテゴリ</p>
 
@@ -90,7 +85,6 @@
                     @enderror
                 </div>
 
-                {{-- 商品の状態 --}}
                 <div class="sell-create__group">
                     <label class="sell-create__label" for="condition">商品の状態</label>
 
@@ -113,14 +107,13 @@
                     @enderror
                 </div>
 
-                {{-- 価格 --}}
                 <div class="sell-create__group">
                     <label class="sell-create__label" for="price">価格</label>
 
                     <div class="sell-create__price-wrap">
                         <span class="sell-create__price-prefix">¥</span>
                         <input class="sell-create__input sell-create__input--price" id="price" type="number"
-                            name="price" value="{{ old('price') }}" inputmode="numeric">
+                            min="0" step="1" name="price" value="{{ old('price') }}" inputmode="numeric">
                     </div>
 
                     @error('price')

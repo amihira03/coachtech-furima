@@ -12,7 +12,6 @@
                 メール認証を完了してください。
             </p>
 
-            {{-- MailHogへ飛ぶだけ（送信はしない） --}}
             <div class="verify-notice__actions">
                 <a class="verify-notice__button" href="http://localhost:8025" target="_blank" rel="noopener">
                     認証はこちらから

@@ -17,8 +17,7 @@ class CreatePurchasesTable extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained('users');
             $table->foreignId('item_id')->constrained('items');
-            $table->unique('item_id'); // 1商品につき購入は最大1回
-
+            $table->unique('item_id');
             $table->string('payment_method', 50);
             $table->timestamps();
         });

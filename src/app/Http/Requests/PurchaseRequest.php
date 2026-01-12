@@ -6,25 +6,18 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class PurchaseRequest extends FormRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     *
-     * @return bool
-     */
-    public function authorize()
+    public function authorize(): bool
     {
         return true;
     }
 
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array
-     */
-    public function rules()
+    public function rules(): array
     {
         return [
             'payment_method' => ['required', 'in:convenience_store,card'],
+            'shipping_postal_code' => ['required'],
+            'shipping_address' => ['required'],
+            'shipping_building' => ['nullable', 'max:255'],
         ];
     }
 
@@ -33,6 +26,8 @@ class PurchaseRequest extends FormRequest
         return [
             'payment_method.required' => '支払い方法を選択してください。',
             'payment_method.in' => '支払い方法を正しく選択してください。',
+            'shipping_postal_code.required' => '配送先を設定してください。',
+            'shipping_address.required' => '配送先を設定してください。',
         ];
     }
 }

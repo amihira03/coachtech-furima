@@ -8,34 +8,30 @@
     <main class="items-show">
         <div class="items-show__inner">
 
-            {{-- 左：画像 --}}
             <section class="items-show__left">
                 <div class="items-show__image-wrap {{ $item->purchase ? 'is-sold' : '' }}">
                     @php
                         $image = $item->image_path ?? null;
                         $imageUrl = null;
 
-                        if (!empty($image)) {
-                            $imageUrl = \Illuminate\Support\Str::startsWith($image, ['http://', 'https://'])
-                                ? $image
-                                : asset('storage/' . $image);
+                        if ($image) {
+                            $imageUrl = str_starts_with($image, 'images/goods/')
+                                ? asset($image) // 初期データ（public）
+                                : \Illuminate\Support\Facades\Storage::url($image); // 出品画像（storage）
                         }
                     @endphp
 
-                    @if (!empty($imageUrl))
+                    @if ($imageUrl)
                         <img class="items-show__image" src="{{ $imageUrl }}" alt="{{ $item->name }}">
                     @else
                         <div class="items-show__no-image">商品画像</div>
                     @endif
-
-                    {{-- Sold（purchaseがあれば） --}}
                     @if ($item->purchase)
                         <span class="items-show__sold">Sold</span>
                     @endif
                 </div>
             </section>
 
-            {{-- 右：情報 --}}
             <section class="items-show__right">
                 <h1 class="items-show__name">{{ $item->name }}</h1>
 
@@ -45,7 +41,6 @@
 
                 <p class="items-show__price">¥{{ number_format($item->price) }}</p>
 
-                {{-- いいね数 --}}
                 <div class="items-show__count">
                     @auth
                         <form method="POST" action="{{ route('items.like', ['item_id' => $item->id]) }}">
@@ -65,13 +60,11 @@
                     <span class="items-show__count-number">{{ $item->likes_count }}</span>
                 </div>
 
-                {{-- コメント数 --}}
                 <div class="items-show__count">
                     <img class="items-show__icon" src="{{ asset('images/icons/comment.png') }}" alt="コメント">
                     <span class="items-show__count-number">{{ $item->comments_count }}</span>
                 </div>
 
-                {{-- 購入ボタン --}}
                 <div class="items-show__actions">
                     @if ($item->purchase)
                         <button class="items-show__purchase-button" type="button" disabled>売り切れました</button>
@@ -82,13 +75,11 @@
                     @endif
                 </div>
 
-                {{-- 商品説明 --}}
                 <section class="items-show__section">
                     <h2 class="items-show__section-title">商品説明</h2>
                     <p class="items-show__description">{{ $item->description }}</p>
                 </section>
 
-                {{-- 商品情報 --}}
                 <section class="items-show__section">
                     <h2 class="items-show__section-title">商品の情報</h2>
 
@@ -107,7 +98,6 @@
                     </div>
                 </section>
 
-                {{-- コメント --}}
                 <section class="items-show__section">
                     <h2 class="items-show__section-title">コメント（{{ $item->comments_count }}）</h2>
 
@@ -133,7 +123,6 @@
                         </p>
                     @endauth
 
-                    {{-- コメント一覧 --}}
                     <div class="items-show__comments">
                         @forelse ($item->comments as $comment)
                             <div class="items-show__comment">

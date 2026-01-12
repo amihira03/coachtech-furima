@@ -11,19 +11,21 @@
                 novalidate>
                 @csrf
 
-                {{-- 左：商品情報 / 支払い方法 / 配送先 --}}
+                <input type="hidden" name="shipping_postal_code" value="{{ $shipping_postal_code ?? '' }}">
+                <input type="hidden" name="shipping_address" value="{{ $shipping_address ?? '' }}">
+                <input type="hidden" name="shipping_building" value="{{ $shipping_building ?? '' }}">
+
                 <section class="purchase-left">
-                    {{-- 商品情報 --}}
                     <div class="purchase-item">
                         <div class="purchase-thumb">
                             @php
                                 $image = $item->image_path ?? null;
-
                                 $imageUrl = null;
-                                if (!empty($image)) {
-                                    $imageUrl = \Illuminate\Support\Str::startsWith($image, ['http://', 'https://'])
-                                        ? $image
-                                        : asset('storage/' . $image);
+
+                                if ($image) {
+                                    $imageUrl = str_starts_with($image, 'images/goods/')
+                                        ? asset($image) // 初期データ（public）
+                                        : \Illuminate\Support\Facades\Storage::url($image); // 出品画像（storage）
                                 }
                             @endphp
 
@@ -42,7 +44,6 @@
 
                     <div class="purchase-divider"></div>
 
-                    {{-- 支払い方法 --}}
                     <section class="purchase-section">
                         <h2 class="purchase-section-title">支払い方法</h2>
 
@@ -59,7 +60,6 @@
                             </select>
                         </div>
 
-                        {{-- エラー表示（高さ確保してズレ防止） --}}
                         @error('payment_method')
                             <p class="purchase-error">{{ $message }}</p>
                         @else
@@ -69,7 +69,6 @@
 
                     <div class="purchase-divider"></div>
 
-                    {{-- 配送先 --}}
                     <section class="purchase-section">
                         <div class="purchase-section-head">
                             <h2 class="purchase-section-title">配送先</h2>
@@ -88,6 +87,12 @@
                         </div>
                     </section>
 
+                    @error('shipping_postal_code')
+                        <p class="purchase-error">{{ $message }}</p>
+                    @else
+                        <p class="purchase-error"></p>
+                    @enderror
+
                     <p class="purchase-back">
                         <a class="purchase-back-link" href="{{ route('items.show', ['item_id' => $item->id]) }}">
                             商品詳細へ戻る
@@ -95,7 +100,6 @@
                     </p>
                 </section>
 
-                {{-- 右：サマリー（商品代金 / 支払い方法） + 購入ボタン --}}
                 <aside class="purchase-right">
                     <div class="purchase-summary">
                         <div class="purchase-summary-row">
@@ -111,7 +115,6 @@
                         </div>
                     </div>
 
-                    {{-- ボタンはここに1個だけ（スマホでも「商品代金/支払い方法」の直下に来る） --}}
                     <button class="purchase-button" type="submit">購入する</button>
                 </aside>
             </form>

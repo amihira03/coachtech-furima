@@ -11,7 +11,6 @@ class LikeTableSeeder extends Seeder
 {
     public function run()
     {
-        // ① いいねをするユーザー（出品者A）
         $user = User::where('email', 'seller_a@example.com')->first();
 
         if (!$user) {
@@ -19,7 +18,6 @@ class LikeTableSeeder extends Seeder
             return;
         }
 
-        // ② いいね対象の商品（出品者Bの商品）
         $items = Item::whereIn('name', [
             '革靴',
             'ノートPC',
@@ -30,7 +28,6 @@ class LikeTableSeeder extends Seeder
             return;
         }
 
-        // ③ likes データ作成
         foreach ($items as $item) {
             Like::firstOrCreate([
                 'user_id' => $user->id,

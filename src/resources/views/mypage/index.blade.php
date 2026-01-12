@@ -9,26 +9,19 @@
         /** @var \App\Models\User $user */
         $user = auth()->user();
 
-        $activePage = request('page', 'sell'); // sell | buy
+        $activePage = request('page', 'sell');
         $isSell = $activePage !== 'buy';
 
         $profileImagePath = $user->profile_image_path ?? null;
-        $profileImageUrl = null;
-
-        if (!empty($profileImagePath)) {
-            $profileImageUrl = \Illuminate\Support\Str::startsWith($profileImagePath, ['http://', 'https://'])
-                ? $profileImagePath
-                : asset('storage/' . $profileImagePath);
-        }
+        $profileImageUrl = $profileImagePath ? \Illuminate\Support\Facades\Storage::url($profileImagePath) : null;
     @endphp
 
     <main class="mypage">
         <div class="mypage__inner">
 
-            {{-- header --}}
             <section class="mypage__profile">
                 <div class="mypage__profile-image">
-                    @if (!empty($profileImageUrl))
+                    @if ($profileImageUrl)
                         <img class="mypage__profile-image-src" src="{{ $profileImageUrl }}" alt="プロフィール画像">
                     @endif
                 </div>
@@ -40,7 +33,6 @@
                 </a>
             </section>
 
-            {{-- tabs --}}
             <nav class="mypage__tabs">
                 <a href="{{ url('/mypage?page=sell') }}" class="mypage__tab {{ $isSell ? 'is-active' : '' }}">
                     出品した商品
@@ -51,7 +43,6 @@
                 </a>
             </nav>
 
-            {{-- list --}}
             <section class="mypage__list">
                 @if (!$isSell)
                     {{-- buy items --}}
@@ -61,17 +52,18 @@
                                 $image = $item->image_path ?? null;
                                 $imageUrl = null;
 
-                                if (!empty($image)) {
-                                    $imageUrl = \Illuminate\Support\Str::startsWith($image, ['http://', 'https://'])
-                                        ? $image
-                                        : asset('storage/' . $image);
+                                if ($image) {
+                                    $imageUrl = str_starts_with($image, 'images/goods/')
+                                        ? asset($image)
+                                        : \Illuminate\Support\Facades\Storage::url($image);
                                 }
                             @endphp
 
                             <a class="mypage__card" href="{{ url('/item/' . $item->id) }}">
                                 <div class="mypage__card-image-wrap">
-                                    @if (!empty($imageUrl))
-                                        <img class="mypage__card-image" src="{{ $imageUrl }}" alt="{{ $item->name }}">
+                                    @if ($imageUrl)
+                                        <img class="mypage__card-image" src="{{ $imageUrl }}"
+                                            alt="{{ $item->name }}">
                                     @else
                                         <div class="mypage__card-no-image">商品画像</div>
                                     @endif
@@ -91,20 +83,20 @@
                                 $image = $item->image_path ?? null;
                                 $imageUrl = null;
 
-                                if (!empty($image)) {
-                                    $imageUrl = \Illuminate\Support\Str::startsWith($image, ['http://', 'https://'])
-                                        ? $image
-                                        : asset('storage/' . $image);
+                                if ($image) {
+                                    $imageUrl = str_starts_with($image, 'images/goods/')
+                                        ? asset($image)
+                                        : \Illuminate\Support\Facades\Storage::url($image);
                                 }
 
-                                // どちらかが true なら sold 扱い
-                                $isSold = !empty($item->purchase) || (!empty($item->is_sold) && $item->is_sold);
+                                $isSold = !empty($item->purchase);
                             @endphp
 
                             <a class="mypage__card" href="{{ url('/item/' . $item->id) }}">
                                 <div class="mypage__card-image-wrap {{ $isSold ? 'is-sold' : '' }}">
-                                    @if (!empty($imageUrl))
-                                        <img class="mypage__card-image" src="{{ $imageUrl }}" alt="{{ $item->name }}">
+                                    @if ($imageUrl)
+                                        <img class="mypage__card-image" src="{{ $imageUrl }}"
+                                            alt="{{ $item->name }}">
                                     @else
                                         <div class="mypage__card-no-image">商品画像</div>
                                     @endif

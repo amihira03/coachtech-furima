@@ -17,6 +17,7 @@ class CreateLikesTable extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained('users');
             $table->foreignId('item_id')->constrained('items');
+            $table->unique(['user_id', 'item_id']);
             $table->timestamps();
         });
     }
