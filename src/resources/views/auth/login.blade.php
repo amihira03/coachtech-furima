@@ -43,8 +43,8 @@
                 <button class="login-button" type="submit">ログインする</button>
             </form>
 
-            <p class="login-link">
-                <a class="login-link-anchor" href="/register">会員登録はこちら</a>
+            <p class="register-link">
+                <a class="register-link-anchor" href="/register">会員登録はこちら</a>
             </p>
         </div>
     </div>

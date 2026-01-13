@@ -28,14 +28,13 @@
     text-align: left;
 }
 
-/* ラベル：メールアドレス / パスワード（Figma） */
 .login-label {
     display: block;
     margin: 0 0 8px;
     font-weight: 700;
     font-size: 20px;
     line-height: 1.2;
-    letter-spacing: 0; /* 0% */
+    letter-spacing: 0;
 }
 
 .login-input {
@@ -47,7 +46,6 @@
     outline: none;
 }
 
-/* ボタン：ログインする（Figma） */
 .login-button {
     width: 100%;
     height: 48px;
@@ -68,26 +66,24 @@
     opacity: 0.9;
 }
 
-.login-link {
+.register-link {
     margin-top: 22px;
     text-align: center;
 }
 
-/* リンク：会員登録はこちら（Figma） */
-.login-link-anchor {
+.register-link-anchor {
     color: #0073cc;
     text-decoration: none;
     font-weight: 400;
     font-size: 16px;
     line-height: 1.2;
-    letter-spacing: 0; /* 0% */
+    letter-spacing: 0;
 }
 
-.login-link-anchor:hover {
+.register-link-anchor:hover {
     text-decoration: underline;
 }
 
-/* エラー表示（レイアウトズレ防止） */
 .login-error {
     margin: 6px 0 0;
     font-size: 12px;
@@ -96,30 +92,13 @@
     line-height: 1.3;
 }
 
-/* タイトル直下の「loginキー」エラー用（少し余白） */
 .login-error-global {
     margin: 12px 0 0;
     text-align: center;
 }
 
-@media (max-width: 480px) {
-    .login {
-        padding: 48px 16px;
-    }
-
+@media (min-width: 768px) and (max-width: 850px) {
     .login-inner {
-        padding: 24px 16px;
-    }
-
-    .login-title {
-        font-size: 28px;
-    }
-
-    .login-label {
-        font-size: 18px;
-    }
-
-    .login-button {
-        font-size: 20px;
+        padding: 28px 32px;
     }
 }

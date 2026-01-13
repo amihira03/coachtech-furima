@@ -1,12 +1,12 @@
 .verify-notice {
-    width: 100%;
-    padding: 72px 16px;
-    background: #fff;
+    padding: 80px 16px;
 }
 
 .verify-notice-inner {
-    max-width: 720px;
+    width: 100%;
+    max-width: 680px;
     margin: 0 auto;
+    padding: 32px 40px;
     text-align: center;
 }
 
@@ -15,10 +15,8 @@
     font-size: 16px;
     font-weight: 700;
     line-height: 1.8;
-    color: #000;
 }
 
-/* ボタン・リンク群のまとまり */
 .verify-notice-actions {
     margin-top: 28px;
     display: flex;
@@ -27,24 +25,19 @@
     gap: 16px;
 }
 
-/* 「認証はこちらから」(Figma風：薄グレー＋黒枠) */
 .verify-notice-button {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-
     width: 180px;
     height: 44px;
-
     background: #d9d9d9;
     border: 1px solid #000;
     border-radius: 4px;
-
     color: #000;
     font-size: 14px;
     font-weight: 700;
     text-decoration: none;
-
     cursor: pointer;
 }
 
@@ -52,7 +45,6 @@
     opacity: 0.85;
 }
 
-/* ステータス（再送しました） */
 .verify-notice-status {
     margin: 0;
     font-size: 14px;
@@ -60,17 +52,14 @@
     color: #ff5555;
 }
 
-/* 「認証メールを再送する」(Figma風：青リンク) */
 .verify-notice-resend-button {
     padding: 0;
     border: none;
     background: transparent;
-
-    color: #1a73e8;
-    font-size: 14px;
+    color: #0073cc;
+    font-size: 16px;
     font-weight: 400;
     text-decoration: underline;
-
     cursor: pointer;
 }
 
@@ -78,8 +67,7 @@
     opacity: 0.8;
 }
 
-/* ===== responsive ===== */
-@media (max-width: 480px) {
+@media (min-width: 768px) and (max-width: 850px) {
     .verify-notice {
         padding: 56px 16px;
     }

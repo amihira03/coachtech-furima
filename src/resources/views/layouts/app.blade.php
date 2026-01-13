@@ -23,14 +23,18 @@
                 <img class="site-header-logo" src="{{ asset('images/logo.png') }}" alt="COACHTECH">
             </a>
 
-            @unless (request()->is('login') || request()->is('register'))
+            @php
+                $hideHeaderNav = request()->is('login', 'register', 'email/verify-notice');
+            @endphp
+
+            @if (!$hideHeaderNav)
                 <form action="/" method="GET" class="site-header-search">
                     @if (request('tab') === 'mylist')
                         <input type="hidden" name="tab" value="mylist">
                     @endif
 
-                    <input class="site-header-search-input" type="text" name="keyword" value="{{ request('keyword') }}"
-                        placeholder="なにをお探しですか？">
+                    <input class="site-header-search-input" type="text" name="keyword"
+                        value="{{ request('keyword') }}" placeholder="なにをお探しですか？">
                 </form>
 
                 <nav class="site-header-nav">
@@ -46,11 +50,9 @@
                     @endauth
 
                     <a href="/mypage" class="site-header-link">マイページ</a>
-
                     <a href="/sell" class="site-header-sell-button">出品</a>
                 </nav>
-            @endunless
-
+            @endif
         </div>
     </header>
 
