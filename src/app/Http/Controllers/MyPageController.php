@@ -13,7 +13,6 @@ class MyPageController extends Controller
     {
         $userId = Auth::id();
         $page = $request->query('page', 'sell');
-
         $sellItems = collect();
         $buyItems = collect();
 
@@ -22,9 +21,7 @@ class MyPageController extends Controller
                 ->latest()
                 ->pluck('item_id')
                 ->all();
-
             $itemsById = Item::whereIn('id', $itemIds)->get()->keyBy('id');
-
             $buyItems = collect($itemIds)
                 ->map(fn($id) => $itemsById->get($id))
                 ->filter();
@@ -32,11 +29,9 @@ class MyPageController extends Controller
             $sellItems = Item::where('user_id', $userId)
                 ->latest()
                 ->get();
-
             $soldItemIds = Purchase::whereIn('item_id', $sellItems->pluck('id'))
                 ->pluck('item_id')
                 ->all();
-
             $sellItems = $sellItems->map(function ($item) use ($soldItemIds) {
                 $item->is_sold = in_array($item->id, $soldItemIds, true);
                 return $item;

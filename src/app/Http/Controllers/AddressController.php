@@ -17,7 +17,7 @@ class AddressController extends Controller
         $shipping_address     = !empty($item->shipping_address)     ? $item->shipping_address     : $user->address;
         $shipping_building    = !empty($item->shipping_building)    ? $item->shipping_building    : $user->building;
 
-        return view('purchases.edit_address', compact(
+        return view('purchases.edit-address', compact(
             'item_id',
             'shipping_postal_code',
             'shipping_address',

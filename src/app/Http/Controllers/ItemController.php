@@ -20,18 +20,15 @@ class ItemController extends Controller
                 'keyword' => $keyword,
             ]);
         }
-
         $query = Item::query()
             ->with('purchase');
 
         if (auth()->check()) {
             $query->where('user_id', '!=', auth()->id());
         }
-
         if (!empty($keyword)) {
             $query->where('name', 'like', '%' . $keyword . '%');
         }
-
         if ($tab === 'mylist') {
             $query->whereHas('likes', function ($likeQuery) {
                 $likeQuery->where('user_id', auth()->id());
@@ -47,7 +44,6 @@ class ItemController extends Controller
         ]);
     }
 
-
     public function show($item_id)
     {
         $item = Item::with(['categories', 'purchase', 'comments.user'])
@@ -60,13 +56,13 @@ class ItemController extends Controller
                 ->where('user_id', auth()->id())
                 ->exists();
         }
+
         return view('items.show', compact('item', 'isLiked'));
     }
 
     public function like($item_id)
     {
         $userId = auth()->id();
-
         $like = Like::where('user_id', $userId)
             ->where('item_id', $item_id)
             ->first();
