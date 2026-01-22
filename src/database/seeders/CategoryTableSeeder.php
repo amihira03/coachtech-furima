@@ -28,6 +28,8 @@ class CategoryTableSeeder extends Seeder
             'ベビー・キッズ',
         ];
 
+        DB::table('categories')->whereIn('name', $names)->delete();
+
         $rows = [];
         foreach ($names as $name) {
             $rows[] = [

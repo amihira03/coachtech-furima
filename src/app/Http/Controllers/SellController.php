@@ -17,7 +17,7 @@ class SellController extends Controller
         return view('sells.create', compact('categories'));
     }
 
-    public function store(ExhibitionRequest $request): RedirectResponse
+    public function store(ExhibitionRequest $request)
     {
         $validated = $request->validated();
 

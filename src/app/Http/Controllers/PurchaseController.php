@@ -6,6 +6,7 @@ use App\Http\Requests\PurchaseRequest;
 use App\Models\Item;
 use App\Models\Purchase;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class PurchaseController extends Controller
 {
@@ -23,9 +24,25 @@ class PurchaseController extends Controller
 
         $user = auth()->user();
 
-        $shipping_postal_code = !empty($item->shipping_postal_code) ? $item->shipping_postal_code : $user->postal_code;
-        $shipping_address     = !empty($item->shipping_address)     ? $item->shipping_address     : $user->address;
-        $shipping_building    = !empty($item->shipping_building)    ? $item->shipping_building    : $user->building;
+        $shipping = session()->get("purchase.shipping.{$item_id}", []);
+
+        if (!empty($shipping['shipping_postal_code'])) {
+            $shipping_postal_code = $shipping['shipping_postal_code'];
+        } else {
+            $shipping_postal_code = $user->postal_code;
+        }
+
+        if (!empty($shipping['shipping_address'])) {
+            $shipping_address = $shipping['shipping_address'];
+        } else {
+            $shipping_address = $user->address;
+        }
+
+        if (array_key_exists('shipping_building', $shipping)) {
+            $shipping_building = $shipping['shipping_building'];
+        } else {
+            $shipping_building = $user->building;
+        }
 
         return view('purchases.create', compact(
             'item',
@@ -49,18 +66,25 @@ class PurchaseController extends Controller
 
         $paymentMethod = $request->input('payment_method');
 
-        $paymentMethodTypes = match ($paymentMethod) {
-            'card' => ['card'],
-            'convenience_store' => ['konbini'],
-            default => ['card'],
-        };
+        session()->put("purchase.shipping.{$item_id}", [
+            'shipping_postal_code' => $request->input('shipping_postal_code'),
+            'shipping_address'     => $request->input('shipping_address'),
+            'shipping_building'    => $request->input('shipping_building'),
+        ]);
+
+        if ($paymentMethod === 'card') {
+            $paymentMethodTypes = ['card'];
+        } elseif ($paymentMethod === 'convenience_store') {
+            $paymentMethodTypes = ['konbini'];
+        } else {
+            $paymentMethodTypes = ['card'];
+        }
 
         \Stripe\Stripe::setApiKey(config('services.stripe.secret'));
 
         $session = \Stripe\Checkout\Session::create([
             'mode' => 'payment',
             'payment_method_types' => $paymentMethodTypes,
-
             'line_items' => [[
                 'quantity' => 1,
                 'price_data' => [
@@ -71,10 +95,8 @@ class PurchaseController extends Controller
                     ],
                 ],
             ]],
-
             'success_url' => route('purchases.success', ['item_id' => $item->id], true) . '?session_id={CHECKOUT_SESSION_ID}',
             'cancel_url'  => route('purchases.cancel',  ['item_id' => $item->id], true),
-
             'metadata' => [
                 'item_id' => (string) $item->id,
                 'user_id' => (string) auth()->id(),
@@ -121,13 +143,54 @@ class PurchaseController extends Controller
         $paymentMethod = session('purchase_payment_method')
             ?? ($checkout->metadata->payment_method ?? null);
 
-        Purchase::create([
-            'user_id' => auth()->id(),
-            'item_id' => $item->id,
-            'payment_method' => $paymentMethod,
-        ]);
+        $user = auth()->user();
+        $shipping = session()->get("purchase.shipping.{$item_id}", []);
 
-        session()->forget(['purchase_item_id', 'purchase_payment_method']);
+        if (!empty($shipping['shipping_postal_code'])) {
+            $shipping_postal_code = $shipping['shipping_postal_code'];
+        } else {
+            $shipping_postal_code = $user->postal_code;
+        }
+
+        if (!empty($shipping['shipping_address'])) {
+            $shipping_address = $shipping['shipping_address'];
+        } else {
+            $shipping_address = $user->address;
+        }
+
+        if (!empty($shipping['shipping_building'])) {
+            $shipping_building = $shipping['shipping_building'];
+        } else {
+            $shipping_building = $user->building;
+        }
+
+        DB::transaction(function () use (
+            $item,
+            $shipping_postal_code,
+            $shipping_address,
+            $shipping_building,
+            $paymentMethod
+        ) {
+            $item->update([
+                'shipping_postal_code' => $shipping_postal_code,
+                'shipping_address'     => $shipping_address,
+                'shipping_building'    => $shipping_building,
+            ]);
+
+            Purchase::firstOrCreate(
+                ['item_id' => $item->id],
+                [
+                    'user_id' => auth()->id(),
+                    'payment_method' => $paymentMethod,
+                ]
+            );
+        });
+
+        session()->forget([
+            'purchase_item_id',
+            'purchase_payment_method',
+            "purchase.shipping.{$item_id}",
+        ]);
 
         return redirect('/');
     }

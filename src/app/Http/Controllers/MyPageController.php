@@ -32,10 +32,13 @@ class MyPageController extends Controller
             $soldItemIds = Purchase::whereIn('item_id', $sellItems->pluck('id'))
                 ->pluck('item_id')
                 ->all();
-            $sellItems = $sellItems->map(function ($item) use ($soldItemIds) {
-                $item->is_sold = in_array($item->id, $soldItemIds, true);
-                return $item;
-            });
+            foreach ($sellItems as $item) {
+                if (in_array($item->id, $soldItemIds, true)) {
+                    $item->is_sold = true;
+                } else {
+                    $item->is_sold = false;
+                }
+            }
         }
 
         return view('mypage.index', [

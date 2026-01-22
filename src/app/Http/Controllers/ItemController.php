@@ -49,6 +49,7 @@ class ItemController extends Controller
         $item = Item::with(['categories', 'purchase', 'comments.user'])
             ->withCount(['likes', 'comments'])
             ->findOrFail($item_id);
+
         $isLiked = false;
 
         if (auth()->check()) {

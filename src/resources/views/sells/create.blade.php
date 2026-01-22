@@ -72,7 +72,7 @@
                             <label class="sell-create-checkbox" for="category_{{ $category->id }}">
                                 <input class="sell-create-checkbox-input" id="category_{{ $category->id }}" type="checkbox"
                                     name="categories[]" value="{{ $category->id }}"
-                                    {{ in_array($category->id, $oldCategories, true) ? 'checked' : '' }}>
+                                    {{ in_array($category->id, $oldCategories) ? 'checked' : '' }}>
                                 <span class="sell-create-checkbox-label">{{ $category->name }}</span>
                             </label>
                         @endforeach

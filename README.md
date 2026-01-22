@@ -67,7 +67,6 @@ COACHTECH 模擬案件 フリマアプリ（coachtech-furima）
 - Docker：Docker Desktop
 - 認証：Laravel Fortify
 - バリデーション：FormRequest
-- phpMyAdmin：phpmyadmin/phpmyadmin
 
 ---
 
@@ -91,7 +90,7 @@ COACHTECH 模擬案件 フリマアプリ（coachtech-furima）
 
 ## ダミーデータ（Seeder）
 
-- items は「商品データ一覧」に一致する内容で投入します（画像 URL 含む）
+- items は「商品データ一覧」に準拠した内容で投入しています。（画像は商品画像素材を DL し、public/images 配下に配置しています）
 - categories は固定データとして投入します
 
 ---

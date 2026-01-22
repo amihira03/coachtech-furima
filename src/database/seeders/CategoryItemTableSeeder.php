@@ -26,9 +26,10 @@ class CategoryItemTableSeeder extends Seeder
             'メイクセット' => ['コスメ', 'レディース'],
         ];
 
-        $categoryIds = Category::pluck('id', 'name');
+        $categoryIds = Category::pluck('id', 'name')->toArray();
 
         $rows = [];
+        $itemIds = [];
 
         foreach ($assignments as $itemName => $categoryNames) {
             $item = Item::where('name', $itemName)->first();
@@ -36,6 +37,8 @@ class CategoryItemTableSeeder extends Seeder
             if (!$item) {
                 continue;
             }
+
+            $itemIds[] = $item->id;
 
             foreach ($categoryNames as $categoryName) {
                 $categoryId = $categoryIds[$categoryName] ?? null;
@@ -51,6 +54,10 @@ class CategoryItemTableSeeder extends Seeder
                     'updated_at' => $now,
                 ];
             }
+        }
+
+        if (!empty($itemIds)) {
+            DB::table('category_items')->whereIn('item_id', array_unique($itemIds))->delete();
         }
 
         if (!empty($rows)) {

@@ -12,21 +12,37 @@ class UserTableSeeder extends Seeder
     {
         $now = now();
 
-        DB::table('users')->insert([
+        $users = [
             [
                 'name' => '出品者A',
                 'email' => 'seller_a@example.com',
-                'password' => Hash::make('password'),
-                'created_at' => $now,
-                'updated_at' => $now,
             ],
             [
                 'name' => '出品者B',
                 'email' => 'seller_b@example.com',
-                'password' => Hash::make('password'),
-                'created_at' => $now,
-                'updated_at' => $now,
             ],
-        ]);
+        ];
+
+        foreach ($users as $user) {
+            $exists = DB::table('users')->where('email', $user['email'])->exists();
+
+            if ($exists) {
+                DB::table('users')
+                    ->where('email', $user['email'])
+                    ->update([
+                        'name' => $user['name'],
+                        'password' => Hash::make('password'),
+                        'updated_at' => $now,
+                    ]);
+            } else {
+                DB::table('users')->insert([
+                    'name' => $user['name'],
+                    'email' => $user['email'],
+                    'password' => Hash::make('password'),
+                    'created_at' => $now,
+                    'updated_at' => $now,
+                ]);
+            }
+        }
     }
 }

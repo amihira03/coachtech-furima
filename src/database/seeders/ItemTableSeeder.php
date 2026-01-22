@@ -10,14 +10,12 @@ class ItemTableSeeder extends Seeder
 {
     public function run()
     {
-        $users = User::orderBy('id')->take(2)->get();
+        $sellerA = User::where('email', 'seller_a@example.com')->first();
+        $sellerB = User::where('email', 'seller_b@example.com')->first();
 
-        if ($users->count() < 2) {
+        if (!$sellerA || !$sellerB) {
             return;
         }
-
-        $sellerA = $users[0];
-        $sellerB = $users[1];
 
         $now = now();
 
@@ -65,7 +63,7 @@ class ItemTableSeeder extends Seeder
                 'updated_at' => $now,
             ],
             [
-                'user_id' => $sellerB->id,
+                'user_id' => $sellerA->id,
                 'name' => '革靴',
                 'brand_name' => null,
                 'description' => 'クラシックなデザインの革靴',
@@ -79,7 +77,7 @@ class ItemTableSeeder extends Seeder
                 'updated_at' => $now,
             ],
             [
-                'user_id' => $sellerB->id,
+                'user_id' => $sellerA->id,
                 'name' => 'ノートPC',
                 'brand_name' => null,
                 'description' => '高性能なノートパソコン',
@@ -135,7 +133,7 @@ class ItemTableSeeder extends Seeder
                 'updated_at' => $now,
             ],
             [
-                'user_id' => $sellerA->id,
+                'user_id' => $sellerB->id,
                 'name' => 'コーヒーミル',
                 'brand_name' => 'Starbacks',
                 'description' => '手動のコーヒーミル',
@@ -149,7 +147,7 @@ class ItemTableSeeder extends Seeder
                 'updated_at' => $now,
             ],
             [
-                'user_id' => $sellerA->id,
+                'user_id' => $sellerB->id,
                 'name' => 'メイクセット',
                 'brand_name' => null,
                 'description' => '便利なメイクアップセット',
@@ -163,6 +161,9 @@ class ItemTableSeeder extends Seeder
                 'updated_at' => $now,
             ],
         ];
+
+        $itemNames = array_column($items, 'name');
+        DB::table('items')->whereIn('name', $itemNames)->delete();
 
         DB::table('items')->insert($items);
     }
