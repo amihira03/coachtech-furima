@@ -51,7 +51,7 @@ class ItemTableSeeder extends Seeder
             [
                 'user_id' => $sellerA->id,
                 'name' => '玉ねぎ3束',
-                'brand_name' => null,
+                'brand_name' => 'なし',
                 'description' => '新鮮な玉ねぎ3束のセット',
                 'price' => 300,
                 'condition' => 'やや傷や汚れあり',
@@ -93,7 +93,7 @@ class ItemTableSeeder extends Seeder
             [
                 'user_id' => $sellerB->id,
                 'name' => 'マイク',
-                'brand_name' => null,
+                'brand_name' => 'なし',
                 'description' => '高音質のレコーディング用マイク',
                 'price' => 8000,
                 'condition' => '目立った傷や汚れなし',
@@ -121,7 +121,7 @@ class ItemTableSeeder extends Seeder
             [
                 'user_id' => $sellerB->id,
                 'name' => 'タンブラー',
-                'brand_name' => null,
+                'brand_name' => 'なし',
                 'description' => '使いやすいタンブラー',
                 'price' => 500,
                 'condition' => '状態が悪い',
