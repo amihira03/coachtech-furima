@@ -34,7 +34,7 @@ COACHTECH 模擬案件 フリマアプリ（coachtech-furima）
 
 ※動作確認用に PurchaseTableSeeder / LikeTableSeeder を用意していますが、
 提出時は DatabaseSeeder から呼び出していません。
-必要に応じて `php artisan db:seed --class=PurchaseTableSeeder` 等で手動実行してください。
+必要に応じて php artisan db:seed --class=PurchaseTableSeeder 等で手動実行してください。
 
 ※ 購入済み（Sold）の商品および自分が出品した商品は、商品詳細画面・購入画面の双方で購入できないよう制御しています。
 
@@ -52,9 +52,9 @@ COACHTECH 模擬案件 フリマアプリ（coachtech-furima）
 - プロフィール編集：http://localhost/mypage/profile
 - 購入した商品一覧：http://localhost/mypage?page=buy
 - 出品した商品一覧：http://localhost/mypage?page=sell
-- phpMyAdmin：http://localhost:8080（※用意した場合のみ）
+- phpMyAdmin：http://localhost:8080
 
-※ `{item_id}` は数字に置き換えてください（例：`/item/1`）
+※ {item_id} は数字に置き換えてください（例：/item/1）
 
 ---
 
@@ -84,7 +84,7 @@ COACHTECH 模擬案件 フリマアプリ（coachtech-furima）
   - マイページ `/mypage`
   - プロフィール編集 `/mypage/profile`（GET/PATCH）
 
-※ マイリスト（`/?tab=mylist`）は、未認証の場合「何も表示されない」挙動にします。
+※ マイリスト（/?tab=mylist）は、未認証の場合「何も表示されない」挙動にします。
 
 ---
 
