@@ -7,6 +7,7 @@ use App\Models\Item;
 use App\Models\Purchase;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Services\StripeCheckoutService;
 
 class PurchaseController extends Controller
 {
@@ -125,9 +126,7 @@ class PurchaseController extends Controller
             return redirect()->route('purchases.create', ['item_id' => $item->id]);
         }
 
-        \Stripe\Stripe::setApiKey(config('services.stripe.secret'));
-
-        $checkout = \Stripe\Checkout\Session::retrieve($sessionId);
+        $checkout = app(StripeCheckoutService::class)->retrieveCheckoutSession($sessionId);
 
         $metaItemId = $checkout->metadata->item_id ?? null;
         $metaUserId = $checkout->metadata->user_id ?? null;
