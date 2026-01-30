@@ -45,7 +45,7 @@
                     <div class="purchase-divider"></div>
 
                     <section class="purchase-section">
-                        <h2 class="purchase-section-title">支払い方法</h2>
+                        <h1 class="purchase-section-title">支払い方法</h1>
 
                         <div class="purchase-select-wrap">
                             <select class="purchase-select" name="payment_method" id="payment_method">
