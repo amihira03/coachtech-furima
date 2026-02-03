@@ -94,7 +94,7 @@
 
                     <div class="items-show-meta">
                         <p class="items-show-meta-title">商品の状態</p>
-                        <p class="items-show-condition">{{ $item->condition }}</p>
+                        <p class="items-show-condition">{{ $item->condition->name }}</p>
                     </div>
                 </section>
 

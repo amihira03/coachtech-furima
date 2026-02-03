@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use App\Models\Category;
 use App\Models\Item;
 use App\Models\User;
+use App\Models\Condition;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
@@ -32,12 +33,14 @@ class SellStoreTest extends TestCase
 
         $this->actingAs($seller);
 
+        $condition = Condition::create(['name' => '良好']);
+
         $response = $this->post('/sell', [
             'name' => '出品テスト商品',
             'brand_name' => 'テストブランド',
             'description' => 'これは出品テストの説明です。',
             'price' => 12345,
-            'condition' => '状態が良い',
+            'condition_id' => $condition->id,
             'categories' => [$category1->id, $category2->id],
             'image' => $image,
         ]);
@@ -50,7 +53,7 @@ class SellStoreTest extends TestCase
             'brand_name' => 'テストブランド',
             'description' => 'これは出品テストの説明です。',
             'price' => 12345,
-            'condition' => '状態が良い',
+            'condition_id' => $condition->id,
         ]);
 
         $item = Item::where('name', '出品テスト商品')->firstOrFail();

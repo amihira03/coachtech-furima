@@ -7,6 +7,7 @@ use App\Models\Comment;
 use App\Models\Item;
 use App\Models\Like;
 use App\Models\User;
+use App\Models\Condition;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -21,13 +22,15 @@ class ItemShowTest extends TestCase
         $seller = User::factory()->create();
         $viewer = User::factory()->create();
 
+        $condition = Condition::create(['name' => '良好']);
+
         $item = Item::factory()->create([
             'user_id' => $seller->id,
+            'condition_id' => $condition->id,
             'name' => '詳細テスト商品',
             'brand_name' => 'テストブランド',
             'description' => 'これは詳細ページの説明文です。',
             'price' => 12345,
-            'condition' => '良好',
             'image_path' => 'items/test.jpg',
         ]);
 
@@ -75,8 +78,11 @@ class ItemShowTest extends TestCase
     {
         $seller = \App\Models\User::factory()->create();
 
-        $item = \App\Models\Item::factory()->create([
+        $condition = Condition::create(['name' => '良好']);
+
+        $item = Item::factory()->create([
             'user_id' => $seller->id,
+            'condition_id' => $condition->id,
             'name' => 'カテゴリ確認商品',
         ]);
 

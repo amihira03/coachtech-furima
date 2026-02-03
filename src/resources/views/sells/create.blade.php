@@ -6,7 +6,6 @@
 
 @section('content')
     @php
-        $conditions = ['良好', '目立った傷や汚れなし', 'やや傷や汚れあり', '状態が悪い'];
         $oldCategories = old('categories', []);
     @endphp
 
@@ -86,21 +85,21 @@
                 </div>
 
                 <div class="sell-create-group">
-                    <label class="sell-create-label" for="condition">商品の状態</label>
+                    <label class="sell-create-label" for="condition_id">商品の状態</label>
 
                     <div class="sell-create-select-wrap">
-                        <select class="sell-create-select" id="condition" name="condition">
+                        <select class="sell-create-select" id="condition_id" name="condition_id">
                             <option value="">選択してください</option>
                             @foreach ($conditions as $condition)
-                                <option value="{{ $condition }}"
-                                    {{ old('condition') === $condition ? 'selected' : '' }}>
-                                    {{ $condition }}
+                                <option value="{{ $condition->id }}"
+                                    {{ (string) old('condition_id') === (string) $condition->id ? 'selected' : '' }}>
+                                    {{ $condition->name }}
                                 </option>
                             @endforeach
                         </select>
                     </div>
 
-                    @error('condition')
+                    @error('condition_id')
                         <p class="sell-create-error">{{ $message }}</p>
                     @else
                         <p class="sell-create-error"></p>

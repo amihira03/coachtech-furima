@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\ExhibitionRequest;
 use App\Models\Category;
 use App\Models\Item;
+use App\Models\Condition;
 use Illuminate\Support\Facades\DB;
 
 class SellController extends Controller
@@ -12,8 +13,9 @@ class SellController extends Controller
     public function create()
     {
         $categories = Category::orderBy('id')->get();
+        $conditions = Condition::orderBy('id')->get();
 
-        return view('sells.create', compact('categories'));
+        return view('sells.create', compact('categories', 'conditions'));
     }
 
     public function store(ExhibitionRequest $request)
@@ -29,7 +31,7 @@ class SellController extends Controller
                 'brand_name' => $validated['brand_name'] ?? null,
                 'description' => $validated['description'],
                 'price' => $validated['price'],
-                'condition' => $validated['condition'],
+                'condition_id' => $validated['condition_id'],
                 'image_path' => $storedPath,
             ]);
 

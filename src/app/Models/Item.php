@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use App\Models\Condition;
 
 class Item extends Model
 {
@@ -19,7 +20,7 @@ class Item extends Model
         'brand_name',
         'description',
         'price',
-        'condition',
+        'condition_id',
         'image_path',
         'shipping_postal_code',
         'shipping_address',
@@ -34,6 +35,11 @@ class Item extends Model
     public function categories(): BelongsToMany
     {
         return $this->belongsToMany(Category::class, 'category_items');
+    }
+
+    public function condition(): BelongsTo
+    {
+        return $this->belongsTo(Condition::class);
     }
 
     public function likes(): HasMany
